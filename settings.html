@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="hpstyle.css">
+        <script src="fetch.js"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <input id="embedlink" placeholder="link to embed...">
+            <button onclick="window.location.replace(`https://dfsg-youtube.vercel.app/?v=` + document.getElementById('embedlink').value);">open</button>
+            <button id="cloakbutton">cloak</button>
+            <a href="/settings" style="position:absolute;right:1em;">home</a>
+        </div>
+        <h1>settings</h1>
+        <h2 class="side-line">youtube</h2>
+        <h3>player</h3>
+        <form id="playerform">
+            <input type="radio" name="player" onclick="localStorage.setItem('host', '0')"><label>regular youtube player</label><br>
+            <input type="radio" name="player"  onclick="localStorage.setItem('host', '1')"><label>www.youtube-nocookie.com (recommended for bypassing filters)</label>
+        </form>
+        <script>
+            const form = document.getElementById('playerform');
+            console.log('host: "' + localStorage.getItem('host') + '"')
+            form.getElementsByTagName('input')[Number(localStorage.getItem('host'))].checked = true;
+        </script>
+        <h3>manage saved timestamps</h3>
+        <div id="container" style="font-size:0.75em;" class="menu">
+            <details>
+                <summary>show/hide</summary>
+                <div id="list"></div>
+            </details>
+        </div>
+        <script>
+            function openURL(ddd) {
+                window.location.replace(`https://dfsg-youtube.vercel.app/?v=` + document.getElementById('embedlink').value);
+            }
+            
+            function openC(url) {
+                var win = window.open();
+                var iframe = win.document.createElement('iframe');
+                iframe.style.width = "100%";
+                iframe.style.height = "100%";
+                iframe.style.border = "none";
+                iframe.src = url
+                iframe.style.position = "fixed";
+                iframe.style.top = "0";
+                iframe.style.left = "0";
+                iframe.style.right = "0";
+                iframe.style.bottom = "0";
+                iframe.allow = 'fullscreen'
+                win.document.body.appendChild(iframe);
+            }
+            
+            document.getElementById('cloakbutton').addEventListener('click', (e) => {
+                if (document.getElementById('embedlink').value) {
+                    openC('https://dfsg-youtube.vercel.app?v=' + document.getElementById('embedlink').value)
+                } else {
+                    openC('/');
+                    window.top.location.replace('https://google.com');
+                }
+            });
+
+            function loadvidlist() {
+                const crudels = {...localStorage};
+                const ls = Object.keys(crudels).sort().reduce(
+                  (obj, key) => { 
+                    obj[key] = crudels[key]; 
+                    return obj;
+                  }, {}
+                );
+                console.log(Object.keys(ls))
+                const div = document.getElementById('list');
+                div.textContent = '';
+                for (let i = 0; i < Object.keys(ls).length; i++) {
+                    if (!Object.keys(ls)[i].startsWith('ytTime:')) {
+                        continue;
+                    }
+                    const name = document.createElement('div');
+                    getURL('https://noembed.com/embed?url=' + 'https://www.youtube.com/watch?v=' + Object.keys(ls)[i].substring(7)).then(json => {
+                        console.log(json)
+                        const link = document.createElement('span');
+                        link.textContent = 'https://www.youtube.com/watch?v=' + Object.keys(ls)[i].substring(7) + ' | ' + json.title + ' - ' + json.author_name;
+                        link.style.paddingLeft = '10px';
+                        link.style.verticalAlign = 'middle';
+                        const x = document.createElement('a');
+                        x.textContent = '[X]'
+                        x.href = 'javascript:if(confirm(\'permanently delete timestamp of this video?\')){localStorage.removeItem(\'' + Object.keys(ls)[i] +'\');loadvidlist();};'
+                        x.style.paddingLeft = '10px';
+                        name.appendChild(link);
+                        name.appendChild(x);
+                        const img = document.createElement('img');
+                        img.src  = json.thumbnail_url;
+                        img.height = '75';
+                        img.style.verticalAlign = 'middle';
+                        img.paddingRight = '10px';
+                        img.title = json.title;
+                        name.prepend(img);
+                    });
+                    div.appendChild(name);
+                    if(i != Object.keys(ls).length - 1) {
+                        const hr = document.createElement('hr');
+                        div.appendChild(hr);
+                    }
+                }
+                getURL('https://noembed.com/embed?url=https://www.youtube.com/watch?v=iqwcb4ODTaE').then((json) => {
+                    console.log(json.title);
+                });
+            }
+            loadvidlist();
+        </script>
+    </body>
+</html>
