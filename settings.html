@@ -7,7 +7,7 @@
     <body>
         <div class="navbar">
             <input id="embedlink" placeholder="link to embed...">
-            <button onclick="window.location.replace(`https://dfsg-youtube.vercel.app/?v=` + document.getElementById('embedlink').value);">open</button>
+            <button onclick="window.location.replace(`/?v=` + document.getElementById('embedlink').value);">open</button>
             <button id="cloakbutton">cloak</button>
             <a href="/settings" style="position:absolute;right:1em;">home</a>
         </div>
@@ -32,7 +32,7 @@
         </div>
         <script>
             function openURL(ddd) {
-                window.location.replace(`https://dfsg-youtube.vercel.app/?v=` + document.getElementById('embedlink').value);
+                window.location.replace(`/?v=` + document.getElementById('embedlink').value);
             }
             
             function openC(url) {
@@ -53,7 +53,7 @@
             
             document.getElementById('cloakbutton').addEventListener('click', (e) => {
                 if (document.getElementById('embedlink').value) {
-                    openC('https://dfsg-youtube.vercel.app?v=' + document.getElementById('embedlink').value)
+                    openC('?v=' + document.getElementById('embedlink').value)
                 } else {
                     openC('/');
                     window.top.location.replace('https://google.com');
