@@ -8,7 +8,7 @@
         <script src="cookies.js"></script>
         <div class="navbar">
             <input id="embedlink" style="" placeholder="link to embed...">
-            <button onclick="window.location.replace(`https://dfsg-16281041.codehs.me/?v=` + document.getElementById('embedlink').value);">open</button>
+            <button onclick="window.location.replace(`https://dfsg-youtube.vercel.app/?v=` + document.getElementById('embedlink').value);">open</button>
             <button id="cloakbutton">cloak</button>
             <a href="/settings" style="position:absolute;right:1em;">settings</a>
         </div>
@@ -19,7 +19,7 @@
         </div>
         <script>
             function openURL(ddd) {
-                window.location.replace(`https://dfsg-16281041.codehs.me/?v=` + document.getElementById('embedlink').value);
+                window.location.replace(`https://dfsg-youtube.vercel.app/?v=` + document.getElementById('embedlink').value);
             }
             
             function openC(url) {
@@ -50,7 +50,7 @@
             
             document.getElementById('cloakbutton').addEventListener('click', (e) => {
                 if (document.getElementById('embedlink').value) {
-                    openC('https://dfsg-16281041.codehs.me?v=' + document.getElementById('embedlink').value)
+                    openC('https://dfsg-youtube.vercel.app?v=' + document.getElementById('embedlink').value)
                 } else {
                     openC('/');
                     window.top.location.replace('https://google.com');
@@ -59,3 +59,4 @@
         </script>
     </body>
 </html>
+
