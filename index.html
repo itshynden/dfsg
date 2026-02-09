@@ -57,7 +57,7 @@
                         if (sessionStorage.getItem('url').startsWith('https://www.youtube.com/watch?v=')) {
                             const yturl = new URL(sessionStorage.getItem('url'));
                             const ytURLParams = new URLSearchParams(yturl.search)
-                            document.getElementById('grg').src = '/ythandler?v=' + ytURLParams.get('v');
+                            document.getElementById('grg').src = '/ythandler.html?v=' + ytURLParams.get('v');
                         } else {
                             document.getElementById('grg').src = sessionStorage.getItem('url');
                         };
