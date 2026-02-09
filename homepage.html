@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+    <link rel="stylesheet" href="/hpstyle.css">
+    <script src="toolbox.js"></script>
+    </head>
+    <body>
+        <script src="cookies.js"></script>
+        <div class="navbar">
+            <input id="embedlink" style="" placeholder="link to embed...">
+            <button onclick="window.location.replace(`https://dfsg-16281041.codehs.me/?v=` + document.getElementById('embedlink').value);">open</button>
+            <button id="cloakbutton">cloak</button>
+            <a href="/settings" style="position:absolute;right:1em;">settings</a>
+        </div>
+        <h1>dfsg</h1>
+        <p>dfsg is an embedder. it doesn’t get recorded on the history.</p>
+        <div id="popup" style="display:none;">
+            hello! dfsg now has full support for youtube, saving your playtime automatically! <a href="javascript:window.location.replace('/?v=https://www.youtube.com/watch?v=iqwcb4ODTaE')">give it a try!</a> <a href="javascript:localStorage.setItem('askagain', Date.now());document.getElementById('popup').remove()">[X]</a> 
+        </div>
+        <script>
+            function openURL(ddd) {
+                window.location.replace(`https://dfsg-16281041.codehs.me/?v=` + document.getElementById('embedlink').value);
+            }
+            
+            function openC(url) {
+            var win = window.open();
+            var iframe = win.document.createElement('iframe');
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "none";
+            iframe.src = url
+            iframe.style.position = "fixed";
+            iframe.style.top = "0";
+            iframe.style.left = "0";
+            iframe.style.right = "0";
+            iframe.style.bottom = "0";
+            iframe.allow = 'fullscreen'
+            win.document.body.appendChild(iframe);
+            }
+            
+            if (Date.now() - localStorage.getItem('askagain') > 2592000000) {
+                localStorage.removeItem('askagain')
+            }
+
+            if (localStorage.getItem('askagain')) {
+                document.getElementById('popup').remove();
+            } else {
+                document.getElementById('popup').style.display = 'block';
+            }
+            
+            document.getElementById('cloakbutton').addEventListener('click', (e) => {
+                if (document.getElementById('embedlink').value) {
+                    openC('https://dfsg-16281041.codehs.me?v=' + document.getElementById('embedlink').value)
+                } else {
+                    openC('/');
+                    window.top.location.replace('https://google.com');
+                }
+            });
+        </script>
+    </body>
+</html>
