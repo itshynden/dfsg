@@ -24,14 +24,14 @@
             
             if (URLParams.has('cloak')) {
                 if (URLParams.get('v')) {//not using the .has() method here because URL always gets sent with the ?v= parameter, it is more appropiate here to check if it is not empty.
-                    openC('https://dfsg-youtube.vercel.app/' + '?v=' + URLParams.get('v'));
+                    openC('/' + '?v=' + URLParams.get('v'));
                 } else {
-                    openC('https://dfsg-youtube.vercel.app/')
+                    openC('/')
                 };
                 if (window.top == window.self) {
                     window.location.replace('https://google.com')
                 } else {
-                  window.location.replace('https://dfsg-youtube.vercel.app/');
+                  window.location.replace('/');
                 };
             } else {
                 
@@ -63,7 +63,7 @@
                         };
                             sessionStorage.removeItem('url');
                     } else {
-                        document.getElementById('grg').src = 'https://dfsg-youtube.vercel.app/homepage.html';
+                        document.getElementById('grg').src = '/homepage.html';
     
                     };
                 };
