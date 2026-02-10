@@ -8,18 +8,19 @@
         <script src="cookies.js"></script>
         <div class="navbar">
             <input id="embedlink" style="" placeholder="link to embed...">
-            <button onclick="window.location.replace(`/?v=` + document.getElementById('embedlink').value);">open</button>
+            <button onclick="window.location.replace('/?v=' + document.getElementById('embedlink').value);">open</button>
             <button id="cloakbutton">cloak</button>
-            <a href="/settings.html" style="position:absolute;right:1em;">settings</a>
+            <a href="/settings" style="position:absolute;right:1em;">settings</a>
         </div>
+        <p id="txtalert" style="color:#fff;font-weight:100px;"></p>
         <h1>dfsg</h1>
         <p>dfsg is an embedder. it doesn’t get recorded on the history.</p>
         <div id="popup" style="display:none;">
-            hello! dfsg now has full support for youtube, saving your playtime automatically! <a href="javascript:window.location.replace('/?v=https://www.youtube.com/watch?v=iqwcb4ODTaE')">give it a try!</a> <a href="javascript:localStorage.setItem('askagain', Date.now());document.getElementById('popup').remove()">[X]</a> 
+            hello! dfsg now has full support for youtube, saving your playtime automatically! <a href="?v=https://www.youtube.com/watch?v=iqwcb4ODTaE">give it a try!</a> <a href="javascript:localStorage.setItem('askagain', Date.now());document.getElementById('popup').remove()">[X]</a> 
         </div>
         <script>
             function openURL(ddd) {
-                window.location.replace(`/?v=` + document.getElementById('embedlink').value);
+                window.location.replace('/?v=' + document.getElementById('embedlink').value);
             }
             
             function openC(url) {
@@ -36,6 +37,11 @@
             iframe.style.bottom = "0";
             iframe.allow = 'fullscreen'
             win.document.body.appendChild(iframe);
+            }
+            
+            function txtalert(a) {
+                const atr = document.getElementById('txtalert');
+                atr.innerText = a;
             }
             
             if (Date.now() - localStorage.getItem('askagain') > 2592000000) {
@@ -59,4 +65,3 @@
         </script>
     </body>
 </html>
-
