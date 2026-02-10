@@ -1,6 +1,9 @@
 <!doctype html>
 <html>
-    <body style=>
+    <head>
+        <script src="cookies.js"></script>
+    </head>
+    <body style="">
         <iframe id="grg" allow="fullscreen" style="position:fixed;width:100%;height:100%;top:0;left:0;border:none"></iframe> 
         
         <script>
@@ -22,6 +25,10 @@
             const paramsString = window.location.search;
             const URLParams = new URLSearchParams(paramsString);
             
+            
+            if (window.location.href.includes('&') && !URLParams.has('cloak')) {
+                window.location.replace(window.search.replaceAll('&', '%26'));
+            }
             if (URLParams.has('cloak')) {
                 if (URLParams.get('v')) {//not using the .has() method here because URL always gets sent with the ?v= parameter, it is more appropiate here to check if it is not empty.
                     openC('/' + '?v=' + URLParams.get('v'));
@@ -69,6 +76,12 @@
                 };
                 
             };
+            /*document.getElementById('grg').addEventListener('load', (event) => {//create a new white pseudobackground so pages without a set background color work while not flashbanging the user due to cache
+                Object.assign(document.getElementById('grg').style, {width: '100%', height: '100%', zIndex: 1});
+                const bg = document.createElement('div');
+                Object.assign(bg.style, {position: 'fixed', inset: '0', backgroundColor: '#fff', zIndex: '0'});
+                document.body.prepend(bg);
+            });*/
         </script>
     </body>
 </html>
